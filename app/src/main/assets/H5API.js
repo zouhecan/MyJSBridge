@@ -1,0 +1,2 @@
+H5BusinessPlugin.trackJSMessage
+H5DevicePlugin.deviceInfo

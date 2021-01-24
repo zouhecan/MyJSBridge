@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+    function sayHello() {
+        invoke("Business","trackJSMessage", {"message":"Hello Native!"});
+    }
+
+    var CallBack = function(res){alert(JSON.stringify(res))}
+    function getDeviceInfo() {
+        invoke("Device","deviceInfo",{"callback":"CallBack"});
+    }
+
+    function notifyWebViewReady(param) {
+        var tip = param + new Date();
+        console.log(tip);
+        document.getElementById("result").innerHTML = tip;
+    }
+    function invoke(object, func, params) {
+        window.prompt("jsbridge://" + object + "/"+ func + "?" + "params="+JSON.stringify(params));
+    }
+</script>
+
+<!--head中添加的是元数据，不会具体到页面中显示-->
+<head>
+    <!--指定网页允许的字符集，防止出现乱码-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <!--本网页的描述信息-->
+    <meta name="description" content="Html5 hello world page!">
+
+    <!--本网页的名字-->
+    <title>MyJSBridge</title>
+    <link rel="stylesheet" href="helloWorld.css">
+</head>
+
+<body class="blueBody">
+<!--2号标题，即5号字体-->
+<h1>JSBridge初探</h1>
+
+<!--添加一条横线-->
+<hr>
+
+<!--段落标签p,会在段前添加换行-->
+<p>研究目标：不注入js对象，实现webView和native双向通信！</p>
+
+<!--两个br表示空一行-->
+<br><br>
+
+<!--添加换行-->
+<br>
+
+<div>
+    <button onclick="sayHello()">say hello to native</button>
+    <button onclick="getDeviceInfo()">get native device info</button>
+</div>
+
+
+<br>
+<span id="result" style="font-size: 20px;"></span>
+
+</body>
+
+</html>
