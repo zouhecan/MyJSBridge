@@ -13,7 +13,7 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 public class H5WebView extends WebView {
-    private Context mContext;
+    private final Context mContext;
 
     public H5WebView(Context context) {
         super(context);
@@ -79,13 +79,16 @@ public class H5WebView extends WebView {
                 return;
             }
             path = path.replace("/", "");
-            PluginHandler handler = H5PluginFactory.pluginHandlers.get(host + "." + path);
+            PluginHandler handler = H5PluginFactory.getPluginHandler(host + "." + path);
             if (handler != null) {
                 handler.h5WebView = this;
                 handler.execute(uri.getQueryParameter("params"));
+            } else {
+                reportInvokeError();
             }
         } catch (Exception e) {
             e.printStackTrace();
+            reportInvokeError();
         }
     }
 
