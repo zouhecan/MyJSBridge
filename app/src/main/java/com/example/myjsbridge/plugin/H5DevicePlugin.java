@@ -24,9 +24,10 @@ public class H5DevicePlugin {
                     response.put("deviceId", "1233456");
 
                     if (h5WebView != null && !TextUtils.isEmpty(callback)) {
-                        String func = "javascript:(function() {" +
-                                callback + "(JSON.stringify(" + response.toString() + "));" +
-                                "})()";
+//                        String func = "javascript:(function() {" +
+//                                callback + "(JSON.stringify(" + response.toString() + "));" +
+//                                "})()";
+                        String func = "javascript:(" + callback + "(JSON.stringify(" + response.toString() + "))";
                         h5WebView.evaluateJavascript(func, null);
                     }
 
